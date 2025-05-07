@@ -145,7 +145,7 @@ Correlations are not enough to judge whether long reviews, high‑star ratings, 
 
 | Symbol | Meaning                                                                                                      |
 | ------ | ------------------------------------------------------------------------------------------------------------ |
-| **T**  | (1 = *positive*, 0 = *neutral/negative*) (for **VADER** direct, for **BERT** 5‑star model, collapsed)                     |
+| **T**  | (1 = *positive*, 0 = *neutral/negative*) (For **VADER** direct. For **BERT** 5‑star model, collapsed)                     |
 | **Y**  | Helpful‑vote count                                                                                           |
 | **X**  | `review_length`, `year`, `rating`, `verified_purchase`, `category` (one‑hot), `asin_freq` (popularity proxy) |
 
@@ -160,7 +160,7 @@ Correlations are not enough to judge whether long reviews, high‑star ratings, 
 | --------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
 | **1. Propensity‑score model**     | Logistic‑Regression P(T = 1 \| X)                                                                                                  | Summarises many confounders into one probability.                   |
 | **2. Inverse‑propensity weights** | $w_i = \dfrac{T_i}{e_i} + \dfrac{1-T_i}{1-e_i}$ <br>*(clipped at 1 st–99 th pct)*                         | Re‑weights data so treated & control groups have matched covariate distributions (≈ randomized trial). |                                                                     |
-| **3. Outcome model**              | Weighted **Negative‑Binomial GLM**<br>\`log E\[Y                                                          | T] = β₀ + β₁ T\`                                                                                       | Counts are right‑skewed & over‑dispersed → NB fits variance ≫ mean. |
+| **3. Outcome model**              | Weighted **Negative‑Binomial GLM**<br>\`log E\[Y                                                          \| T] = β₀ + β₁ T\`                                                                                       | Counts are right‑skewed & over‑dispersed → NB fits variance ≫ mean. |
 | **4. Diagnostics**                | • Propensity overlap plots<br>• Weight histogram<br>• Pearson χ² / df<br>• Standardised‑mean differences  | Ensures no drastic positivity violations; checks covariate balance and dispersion.                     |                                                                     |                                                           |
 
 | Model            | β<sub>sentiment</sub> (log‑scale) | Rate‑ratio `exp(β)` | 95 % CI       | Practical reading                                                                                  |
