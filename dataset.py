@@ -3,6 +3,7 @@ from datasets import load_dataset
 from tqdm import tqdm
 from utils import columns, categories, columns_cleaned, csv_chunksize
 
+
 def generate_dataset(batch_size: int, file_path: str):
     res = pd.DataFrame(columns=columns)
     res.to_csv(file_path, index=False)
@@ -18,7 +19,12 @@ def generate_dataset(batch_size: int, file_path: str):
         for batch in dataset.take(batch_size).iter(batch_size=batch_size):
             res = pd.DataFrame(batch, columns=columns)
             res["category"] = category
-            res.to_csv(file_path, index=False, header=False, mode="a", escapechar='\\')
+            res.to_csv(
+                file_path,
+                index=False,
+                header=False,
+                mode="a",
+                escapechar='\\')
     print("Dataset Path:", file_path)
 
 
@@ -33,5 +39,10 @@ def clean_dataset(file_path: str, clean_path: str):
         df = df[df["review_length"] > 5]
         df["token_count"] = df["text"].apply(lambda x: len(x))
         df = df[df["token_count"] <= 256]
-        df.to_csv(clean_path, index=False, header=False, mode="a", escapechar='\\')
+        df.to_csv(
+            clean_path,
+            index=False,
+            header=False,
+            mode="a",
+            escapechar='\\')
     print("Cleaned Dataset Path:", clean_path)

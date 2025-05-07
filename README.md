@@ -1,10 +1,6 @@
 # Not all reviews are created equal?
 
-Online product reviews are a cornerstone of ecommerce platforms, influencing buyer behavior
-and product visibility. However, not all reviews
-are perceived as equally helpful. 
-
-This project addresses the following question: 
+This project contains exploratory scripts for sentiment analysis on Amazon Review Dataset 2023.
 
 > **Does the sentiment expressed in a review causally affect its helpfulness, as measured by helpful votes?**
 
@@ -15,11 +11,9 @@ This project addresses the following question:
 1. [Overview](#overview)
 2. [Dataset](#dataset)
 3. [Sentiment Analysis](#sentiment-analysis)
-4. [Causal Inference](#casual-inference)
-5. [Result](#result)
-6. [Quick Start](#quick-start)
-7. [File Layout](#file-layout)
-8. [Dependencies](#dependencies)
+4. [Quick Start](#quick-start)
+5. [File Layout](#file-layout)
+6. [Dependencies](#dependencies)
 
 ---
 
@@ -137,87 +131,6 @@ Cohen κ = 0.384
 
 Both models label most reviews as positive, but VADER labels slightly more as positive. 
 80 % positives for VADER versus 75 % for BERT.
-
-## Causal Inference 
-
-Correlations are not enough to judge whether long reviews, high‑star ratings, and popular products all earn more “helpful” votes and tend to sound happier. We therefore frame the task as a treatment‑effect problem and use modern causal‑inference tooling to separate causes from mere co‑occurrences.
-
-| Symbol | Meaning                                                                                                      |
-| ------ | ------------------------------------------------------------------------------------------------------------ |
-| **T**  | (1 = *positive*, 0 = *neutral/negative*) (For **VADER** direct. For **BERT** 5‑star model, collapsed)        |
-| **Y**  | Helpful‑vote count                                                                                           |
-| **X**  | `review_length`, `year`, `rating`, `verified_purchase`, `category` (one‑hot), `asin_freq` (popularity proxy) |
-
-
-> `asin_freq` we take the frequency of product asin as a proxy of popularity of the product
-
-Below is a brief about the decisions we made when doing Causal Inference.
-
-| Step | What we do|Why|
-| --------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| **1. Propensity‑score model**     | Logistic‑Regression P(T = 1 \| X)                                                                         | Summarise many confounders into one probability.|
-| **2. Inverse‑propensity weights** | $w_i = \dfrac{T_i}{e_i} + \dfrac{1-T_i}{1-e_i}$ <br>*(clipped at 1 st–99 th pct)*                         | Re‑weights data so treated & control groups have matched covariate distributions. |
-| **3. Outcome model**              | Weighted **Negative‑Binomial GLM**<br>\`log E\[Y\| T] = β₀ + β₁ T\`                                       | Counts are right‑skewed & over‑dispersed → NB fits variance ≫ mean.|
-| **4. Diagnostics**                | • Propensity overlap plots<br>• Weight histogram<br>• Pearson χ² / df<br>• Standardised‑mean differences  | Ensures no drastic positivity violations; checks covariate balance and dispersion.|  
-
-### VADER (Category Size = 25000, N = 429041)
-| Model            | β<sub>sentiment</sub> (log‑scale) | Rate‑ratio `exp(β)` | 95 % CI       | Practical reading                                                                                  |
-| ---------------- | --------------------------------- | ------------------- | ------------- | -------------------------------------------------------------------------------------------------- |
-| **NB‑GLM + IPW** | **–0.022 ± 0.003**                | **0.978**           | 0.972 – 0.985 | A positive review gathers **≈ 2 % fewer** helpful votes than a comparable neutral/negative review. |
-
-*Large sample → p < 0.001, but effect size is tiny.*
-
-#### Interpretation
-After balancing for length, rating, verified‑purchase badge, year, category, and product popularity, sentiment alone has little to no practical impact on perceived helpfulness.
-
-Earlier –35 % “effect” shrank once we accounted for hidden bias—illustrating why causal adjustment matters.
-
-However switching to BERT shifts the result.
-
-
-### BERT (Category Size = 25000, N = 429041)
-
-*Weighted **Negative‑Binomial GLM** (α left at 1 for comparability)*
-
-| Term                     | Coef (log) |    SE |     z | p‑value | Rate‑ratio `exp()` |
-| ------------------------ | ---------: | ----: | ----: | ------: | -----------------: |
-| **Intercept**            |     –0.175 | 0.002 | –75.5 | < 0.001 |               0.84 |
-| **Sentiment = positive** | **–0.192** | 0.003 | –56.9 | < 0.001 |          **0.826** |
-
-Other stats:  Pearson χ² / df ≈ 28 (over‑dispersion handled by NB) Pseudo‑R² = 0.0075
-
-### Result
-
-> **Positive wording reduces expected helpful votes by ≈ 17 %**
-> $e^{-0.192}=0.826,\;95\% \text{CI}=0.823–0.832$
-
-### Interpretation
-
-*Using BERT’s stricter, context‑aware labels, positive sentiment is **statistically and practically associated with ≈ 15‑17 % fewer helpful votes** once length, rating, verification, year, category, and product popularity are held constant.*
-The discrepancy with VADER (‑2 %) highlights how sentiment‑engine choice can materially change causal conclusions; for transparency we report both and recommend the BERT figure for its higher linguistic fidelity.
-
-### Why this is larger than the VADER estimate (‑2 %)
-
-* **Label shift:** BERT moves \~5 % of reviews (≈21 k) from *positive* to *neutral/negative*.
-  These displaced reviews are typically longer & more balanced, so their helpful votes now boost the control group.
-* **Purified treatment group:** What remains in *positive* is short, uniformly enthusiastic praise with few details means fewer helpful votes.
-* **All other steps (weights, controls, clip range) are identical**, isolating the difference to the sentiment engine itself.
-
-
-## Result
-
-Our analysis shows that **balanced and information‑rich reviews** drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone.
-
-| Principle| Why it matters|
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Reward substance, not just positivity** | The causal models show that uniformly positive wording earns **equal or fewer** helpful votes once review length, rating, etc., are held constant. | 
-| **Tone detection is fragile**             | A shift from VADER → BERT triples the estimated effect (‑2 % → ‑17 %). The labeler you pick will steer any ML‑based ranking.                       |
-| **Highlight mixed or critical reviews**   | Voters tend to mark balanced or mildly negative reviews as more helpful; they add signal that 5‑star praise lacks.                                 |
-| **Context is king**                       | Product popularity, rating, verified‑purchase badge swamp the tiny sentiment effect.                                                               | 
-| **Beware length bias in algorithms**      | Longer reviews attract helpful votes simply because they cover more ground.                                                                        | 
-| **Transparency beats black‑box ranking**  | Small modeling choices change “what rises to the top.” Users notice.                                                                               |  
-| **Run periodic fairness audits**          | Sentiment models can mis‑classify dialects or sarcasm, skewing visibility.                                                                         |
- 
 
 
 ## Quick Start
