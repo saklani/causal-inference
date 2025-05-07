@@ -206,17 +206,17 @@ The discrepancy with VADER (‑2 %) highlights how sentiment‑engine choice c
 
 ## Result
 
-Our analysis shows that *balanced, information‑rich reviews—not cheer‑leading—drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone
+Our analysis shows that *balanced, information‑rich reviews* drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone.
 
 | Principle| Why it matters|
-| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1. Reward substance, not just positivity** | The causal models show that uniformly positive wording earns **equal or fewer** helpful votes once review length, rating, etc., are held constant. | 
-| **2. Tone detection is fragile**             | A shift from VADER → BERT triples the estimated effect (‑2 % → ‑17 %). The labeler you pick will steer any ML‑based ranking.                       |
-| **3. Highlight mixed or critical reviews**   | Voters tend to mark balanced or mildly negative reviews as more helpful; they add signal that 5‑star praise lacks.                                 |
-| **4. Context is king**                       | Product popularity, rating, verified‑purchase badge swamp the tiny sentiment effect.                                                               | 
-| **5. Beware length bias in algorithms**      | Longer reviews attract helpful votes simply because they cover more ground.                                                                        | 
-| **6. Transparency beats black‑box ranking**  | Small modeling choices change “what rises to the top.” Users notice.                                                                               |  
-| **7. Run periodic fairness audits**          | Sentiment models can mis‑classify dialects or sarcasm, skewing visibility.                                                                         |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Reward substance, not just positivity** | The causal models show that uniformly positive wording earns **equal or fewer** helpful votes once review length, rating, etc., are held constant. | 
+| **Tone detection is fragile**             | A shift from VADER → BERT triples the estimated effect (‑2 % → ‑17 %). The labeler you pick will steer any ML‑based ranking.                       |
+| **Highlight mixed or critical reviews**   | Voters tend to mark balanced or mildly negative reviews as more helpful; they add signal that 5‑star praise lacks.                                 |
+| **Context is king**                       | Product popularity, rating, verified‑purchase badge swamp the tiny sentiment effect.                                                               | 
+| **Beware length bias in algorithms**      | Longer reviews attract helpful votes simply because they cover more ground.                                                                        | 
+| **Transparency beats black‑box ranking**  | Small modeling choices change “what rises to the top.” Users notice.                                                                               |  
+| **Run periodic fairness audits**          | Sentiment models can mis‑classify dialects or sarcasm, skewing visibility.                                                                         |
  
 
 
