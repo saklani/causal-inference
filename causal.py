@@ -4,7 +4,6 @@ from sklearn.preprocessing import StandardScaler
 import statsmodels.api as sm
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import LabelEncoder
 
 def prepare_data(df):
     """Preprocess the data"""
