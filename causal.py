@@ -41,7 +41,7 @@ def compute_ipw(T, propensity_score):
     return T / propensity_score + (1 - T) / (1 - propensity_score)
 
 def main():
-    df = pd.read_csv("reviews-25000-analysis-vader.csv")
+    df = pd.read_csv("reviews-25000-analysis-bert.csv")
     X, T, y = prepare_data(df)
     
     logreg = LogisticRegression()
