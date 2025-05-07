@@ -230,7 +230,7 @@ source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 #   (transformers, datasets, nltk, pandas, tqdm, torch, etc.)
 
-# 3. Run the pipeline with default (500 reviews / category)
+# 3. Run the pipeline with default (25000reviews / category)
 python main.py
 ```
 
@@ -243,7 +243,7 @@ The script prints elapsed time for the BERT step so you can gauge throughput.
 Inside `main()`:
 
 ```python
-batch_size            = 500          # samples per category
+batch_size            = 25000         # samples per category
 generate_dataset(...) # uncomment to rebuild raw CSV
 clean_dataset(...)    # uncomment to rebuild cleaned CSV
 vader_sentiment_analysis(...)  # toggle VADER
