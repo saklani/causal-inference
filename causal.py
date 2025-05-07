@@ -58,18 +58,6 @@ def main():
 
     print(result.summary())
 
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-
-    # 1. IPW weight distribution
-    sns.histplot(ipw, log_scale=True)
-    plt.title("IPW weight distribution"); plt.show()
-
-    # 2. Propensity overlap
-    sns.kdeplot(propensity_score[T==1], label="positive")
-    sns.kdeplot(propensity_score[T==0], label="non‑positive")
-    plt.title("Propensity overlap"); plt.legend(); plt.show()
-
 if __name__ == "__main__":
     main()
 
