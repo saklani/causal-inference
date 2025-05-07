@@ -6,7 +6,7 @@ are perceived as equally helpful.
 
 This project addresses the following question: 
 
-**Does the sentiment expressed in a review causally affect its helpfulness, as measured by helpful votes?**
+> **Does the sentiment expressed in a review causally affect its helpfulness, as measured by helpful votes?**
 
 ---
 
