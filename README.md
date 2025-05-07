@@ -208,15 +208,15 @@ The discrepancy with VADER (‑2 %) highlights how sentiment‑engine choice c
 
 Our analysis shows that *balanced, information‑rich reviews—not cheer‑leading—drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone
 
-| Principle| Why it matters| Practical UI / UX moves |
-| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **1. Reward substance, not just positivity** | The causal models show that uniformly positive wording earns **equal or fewer** helpful votes once review length, rating, etc., are held constant. |  Surface a “Was this detailed?” vote alongside “Helpful”.                                                                      |
-| **2. Tone detection is fragile**             | A shift from VADER → BERT triples the estimated effect (‑2 % → ‑17 %). The labeler you pick will steer any ML‑based ranking.                       |  If using sentiment scores for ordering, let ops staff A/B test alternative models.                                            |
-| **3. Highlight mixed or critical reviews**   | Voters tend to mark balanced or mildly negative reviews as more helpful; they add signal that 5‑star praise lacks.                                 |  Add a filter chip: “Show critical & detailed”.                                                                                |
-| **4. Context is king**                       | Product popularity, rating, verified‑purchase badge swamp the tiny sentiment effect.                                                               |  Keep the “Verified purchase” tag prominen and don’t hide low‑star reviews for fear of negativity; they drive perceived trust. |
-| **5. Beware length bias in algorithms**      | Longer reviews attract helpful votes simply because they cover more ground.                                                                        |  Normalize any ML score by review length (e.g., votes per 100 words).                                                          |
-| **6. Transparency beats black‑box ranking**  | Small modeling choices change “what rises to the top.” Users notice.                                                                               |  Publish guidelines: “Helpful = detailed, fair, covers pros & cons                                                             |
-| **7. Run periodic fairness audits**          | Sentiment models can mis‑classify dialects or sarcasm, skewing visibility.                                                                         |  Sample and hand‑check edge cases quarterly.                                                                                   |
+| Principle| Why it matters|
+| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Reward substance, not just positivity** | The causal models show that uniformly positive wording earns **equal or fewer** helpful votes once review length, rating, etc., are held constant. | 
+| **2. Tone detection is fragile**             | A shift from VADER → BERT triples the estimated effect (‑2 % → ‑17 %). The labeler you pick will steer any ML‑based ranking.                       |
+| **3. Highlight mixed or critical reviews**   | Voters tend to mark balanced or mildly negative reviews as more helpful; they add signal that 5‑star praise lacks.                                 |
+| **4. Context is king**                       | Product popularity, rating, verified‑purchase badge swamp the tiny sentiment effect.                                                               | 
+| **5. Beware length bias in algorithms**      | Longer reviews attract helpful votes simply because they cover more ground.                                                                        | 
+| **6. Transparency beats black‑box ranking**  | Small modeling choices change “what rises to the top.” Users notice.                                                                               |  
+| **7. Run periodic fairness audits**          | Sentiment models can mis‑classify dialects or sarcasm, skewing visibility.                                                                         |
  
 
 
