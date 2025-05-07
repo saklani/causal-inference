@@ -17,9 +17,8 @@ expressed in a review causally affect its helpfulness, as measured by helpful vo
 4. [Causal Inference](#casual-inference)
 5. [Result](#result)
 6. [Quick Start](#quick-start)
-7. [Command‑line toggles](#command-line-toggles)
-8. [File Layout](#file-layout)
-9. [Dependencies](#dependencies)
+7. [File Layout](#file-layout)
+8. [Dependencies](#dependencies)
 
 ---
 
