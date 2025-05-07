@@ -235,8 +235,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
-The script prints elapsed time for the BERT step so you can gauge throughput.
-
 ---
 
 ## Command‑line toggles
