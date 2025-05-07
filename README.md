@@ -206,7 +206,7 @@ The discrepancy with VADER (‑2 %) highlights how sentiment‑engine choice c
 
 ## Result
 
-Our analysis shows that *balanced, information‑rich reviews* drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone.
+Our analysis shows that **balanced and information‑rich reviews** drive helpfulness. Product UIs should therefore spotlight detail and credibility cues instead of simply boosting positive tone.
 
 | Principle| Why it matters|
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
