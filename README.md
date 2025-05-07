@@ -2,10 +2,11 @@
 
 Online product reviews are a cornerstone of ecommerce platforms, influencing buyer behavior
 and product visibility. However, not all reviews
-are perceived as equally helpful. This project addresses the following question: 
+are perceived as equally helpful. 
 
-> *Does the sentiment
-expressed in a review causally affect its helpfulness, as measured by helpful votes?*
+This project addresses the following question: 
+
+**Does the sentiment expressed in a review causally affect its helpfulness, as measured by helpful votes?**
 
 ---
 
