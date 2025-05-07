@@ -136,7 +136,7 @@ Cohen κ = 0.384
 
 ### Overall
 
-Both models label most reviews as positive, but VADER. 
+Both models label most reviews as positive, but VADER labels slightly more as positive. 
 80 % positives for VADER versus 75 % for BERT.
 
 ## Causal Inference 
