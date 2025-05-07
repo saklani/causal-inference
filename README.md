@@ -235,25 +235,9 @@ pip install -r requirements.txt
 python main.py
 ```
 
----
-
-## Command‑line toggles
-
-Inside `main()`:
-
-```python
-batch_size            = 25000         # samples per category
-generate_dataset(...) # uncomment to rebuild raw CSV
-clean_dataset(...)    # uncomment to rebuild cleaned CSV
-vader_sentiment_analysis(...)  # toggle VADER
-bert_sentiment_analysis(...)   # toggle BERT
-```
-
----
-
 ## File Layout (default `batch_size = 25000`)
 
-```
+```bash
 reviews-25000.csv                     # raw sample, all 34 categories
 reviews-25000-cleaned.csv             # lowercase, >5 words, token counts
 reviews-25000-analysis-vader.csv      # + VADER sentiment
