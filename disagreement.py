@@ -1,11 +1,12 @@
 import pandas as pd
 from sklearn.metrics import cohen_kappa_score
 import argparse
-
+import numpy as np
 
 def disagreement(df1, df2):
     print(f"df1: {df1.shape}")
     print(f"df2: {df2.shape}")
+    df2["sentiment"] = df2["sentiment"].str.lower()
     # 1. frequency table
     freq = pd.crosstab(df1['sentiment'], columns='VADER')\
         .join(pd.crosstab(df2['sentiment'], columns='BERT'))
@@ -31,7 +32,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--bert",
         help="BERT sentiment analysis file",
-        default='reviews-100000-analysis-bert.csv')
+        default='reviews-100000-analysis-distilbert.csv')
     args = parser.parse_args()
 
     df1 = pd.read_csv(args.vader)
