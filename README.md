@@ -102,7 +102,6 @@ Due to compute constraints we could only generate sentiment analysis of the foll
 | neutral   |   0.0803   |   0.0995   |
 | positive  |   0.8047   |   0.7518   |
 
----
 
 #### VADER × BERT cross‑tab (counts)
 
