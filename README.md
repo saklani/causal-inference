@@ -24,7 +24,9 @@ This project contains exploratory scripts for sentiment analysis on Amazon Revie
 3. **Scores sentiment** with two approaches
 
    * **VADER** (`nltk` lexicon)
-   * **Multilingual BERT** (`nlptown/bert-base-multilingual-uncased-sentiment`)
+   * **Distil BERT** (`distilbert/distilbert-base-uncased-finetuned-sst-2-english`)
+   <!-- * An additional **Multilingual BERT** (`nlptown/bert-base-multilingual-uncased-sentiment`) [Only for testing purpose] -->
+
 4. Writes each intermediate dataset to CSV so you can inspect / reuse any stage.
 5. Casual Inference on several datasets
 
@@ -52,7 +54,7 @@ of different sizes.
 
 ### Generating a sample of the dataset 
 From each category the script selects a random sample equal to that specified by the `--category-size` argument.
-It defaults to `25000`
+It defaults to `100000`
 
 ### Cleaning the Reviews
 The cleaning process is surmised below:
@@ -64,7 +66,7 @@ The cleaning process is surmised below:
 
 
 ```shell
-python main.py --category-size=25000
+python main.py --category-size=100000
 ```
 
 ## Sentiment Analysis
@@ -72,7 +74,7 @@ python main.py --category-size=25000
 After preprocessing each text review we run sentiment analysis on the model.
 We generate a `"negative"`, `"neurtal"`, and `"positive"` label for each review.
 
-We use two techniques to generate these labels
+We use three techniques to generate these labels
 
 1. VADER - We use `nltk`'s implementation of VADER sentiment analysis as a baseline.
 2. BERT - For more accurate results we use a BERT finetuned for sentiment analysis, specifically [distilbert/distilbert-base-uncased-finetuned-sst-2-english](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english). We assume it is a good fit, since it was trained on movie reviews. 
@@ -97,17 +99,17 @@ source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 #   (transformers, datasets, nltk, pandas, tqdm, torch, etc.)
 
-# 3. Run the pipeline with default (25000reviews / category)
+# 3. Run the pipeline with default (100000 reviews / category)
 python main.py
 ```
 
-## File Layout (default `batch_size = 25000`)
+## File Layout (default `batch_size = 100000`)
 
 ```bash
-reviews-25000.csv                     # raw sample, all 34 categories
-reviews-25000-cleaned.csv             # lowercase, >5 words, token counts
-reviews-25000-analysis-vader.csv      # + VADER sentiment
-reviews-25000-analysis-bert.csv       # + BERT sentiment
+reviews-100000.csv                     # raw sample, all 34 categories
+reviews-100000-cleaned.csv             # lowercase, >5 words, token counts
+reviews-100000-analysis-vader.csv      # + VADER sentiment
+reviews-100000-analysis-bert.csv       # + BERT sentiment
 ```
 
 ---
